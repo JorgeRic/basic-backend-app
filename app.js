@@ -9,12 +9,14 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const cors = require('cors');
+
+
 require('dotenv').config();
 
+const basedRouter = require('./routes/based')
 const auth = require('./routes/auth');
 
-mongoose
-  .connect(process.env.MONGODB_URI, {
+mongoose.connect(process.env.MONGODB_URI, {
     keepAlive: true,
     useNewUrlParser: true,
     reconnectTries: Number.MAX_VALUE
@@ -56,7 +58,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 app.use('/auth', auth);
+app.use('/based', basedRouter)
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
