@@ -6,7 +6,7 @@ const createError = require('http-errors');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 
-const User = require('../models/user');
+const User = require('../models/User');
 
 const {
   isLoggedIn,
@@ -42,7 +42,7 @@ router.post(
 
 router.post(
   '/signup',
-  isNotLoggedIn(),
+  isLoggedIn(),
   validationLoggin(),
   async (req, res, next) => {
     const { username, password } = req.body;
@@ -55,8 +55,8 @@ router.post(
         const salt = bcrypt.genSaltSync(10);
         const hashPass = bcrypt.hashSync(password, salt);
         const newUser = await User.create({ username, password: hashPass });
-        req.session.currentUser = newUser;
-        res.status(200).json(newUser);
+        //req.session.currentUser = newUser;
+        // res.status(200).json(newUser);
       }
     } catch (error) {
       next(error);
