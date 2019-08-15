@@ -31,7 +31,7 @@ router.put('/viviendas/:id/edit', async (req, res ,next) => {
   const {id} = req.params
   const vivupdated = req.body
   try{
-    const updated = await Aplication.findByIdAndUpdate(id, vivupdated, {new: true})
+    const updated = await Aplication.findByIdAndUpdate(id, vivupdated)
     res.status(200).json(updated)
   }catch(error){
     next(error)
