@@ -24,12 +24,18 @@ router.post(
   validationLoggin(),
   async (req, res, next) => {
     const { username, password } = req.body;
+
     try {
       const user = await User.findOne({ username });
+      console.log(user, "hggkgk")
       if (!user) {
         next(createError(404));
+        console.log(user, " no exist")
+
       } else if (bcrypt.compareSync(password, user.password)) {
         req.session.currentUser = user;
+        console.log(user, "exist")
+
         return res.status(200).json(user);
       } else {
         next(createError(401));

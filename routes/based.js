@@ -5,7 +5,7 @@ const router = express.Router();
 const Aplication = require('../models/Aplication')
 
 //toma todas las viviendas de la base de datos
-router.get('/viv', async (req, res, next) => {
+router.get('/viviendas', async (req, res, next) => {
   try{
 const listOfViv = await Aplication.find()
 res.status(200).json({listOfViv})
@@ -15,7 +15,7 @@ res.status(200).json({listOfViv})
 }
 })
 //crea nueva vivienda
-router.post('/viv/new', async (req, res, next) => {
+router.post('/viviendas/new', async (req, res, next) => {
   try{
     const newViv = req.body
     const createdViv = await Aplication.create(newViv)
@@ -27,7 +27,7 @@ router.post('/viv/new', async (req, res, next) => {
 })
 
 //modifica las viviendas
-router.put('/viv/:id/edit', (req, res ,next) => {
+router.put('/viviendas/:id/edit', async (req, res ,next) => {
   const {id} = req.params
   const vivupdated = req.body
   try{
@@ -40,8 +40,8 @@ router.put('/viv/:id/edit', (req, res ,next) => {
 })
 
 //borra las viviendas
-router.delete('/viv/:id/delete', (req, res,next) => {
-  const {id}
+router.delete('/viviendas/:id/delete', async (req, res,next) => {
+  const {id} = req.params
   try{
     await Aplication.findByIdAndDelete(id)
     res.status(200).json({message: 'Vivienda eliminada'})
