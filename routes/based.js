@@ -9,6 +9,7 @@ router.get('/viviendas', async (req, res, next) => {
   try{
 const listOfViv = await Aplication.find()
 res.status(200).json({listOfViv})
+console.log(listOfViv, 'Hola')
 
 } catch(error){
   next(error)
@@ -26,12 +27,25 @@ router.post('/viviendas/new', async (req, res, next) => {
   }
 })
 
+router.post('/viviendas/view', async (req, res, next) => {
+  try{
+    const newView = req.body
+    const showView = await Aplication.findOne(newView)
+    res.status(200).json(showView)
+
+  }catch (error){
+    next(error)
+  }
+})
+
+
 //modifica las viviendas
-router.put('/viviendas/:id/edit', async (req, res ,next) => {
+router.put('/viviendas/:id/update', async (req, res ,next) => {
+  console.log("aqui estamos", req)
   const {id} = req.params
   const vivupdated = req.body
   try{
-    const updated = await Aplication.findByIdAndUpdate(id, vivupdated)
+    const updated = await Aplication.findByIdAndUpdate(id, vivupdated, {new: true})
     res.status(200).json(updated)
   }catch(error){
     next(error)
@@ -51,9 +65,10 @@ router.delete('/viviendas/:id/delete', async (req, res,next) => {
 
 })
 
-router.get('/details/:id', async (req, res, next) => {
+router.get('/viviendas/:id/detail', async (req, res, next) => {
+  const {id} = req.params
   try {
-    const id = req.params.id
+    console.log(id, 'Aqui.....')
     const detail = await Aplication.findById(id)
     res.status(200).json(detail)
   } catch (error) {
@@ -62,17 +77,18 @@ router.get('/details/:id', async (req, res, next) => {
 })
 
 
-// router.get('/search', async (req, res, next) => {
-//   try {
-//     const referencia = req.query.referencia;
-//     const refer = await Aplication.find({ referencia });
+router.post('/viviendas/search', async (req, res, next) => {
+  try {
+    const { referencia, title, price, image, numHab, numAseos, type, description} = req.body;
+    const refer = await Aplication.find({ referencia });
 
-//     res.status(200).json(refer)
 
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+    res.status(200).json(refer)
+
+  } catch (error) {
+    next(error);
+  }
+});
 
 
 
