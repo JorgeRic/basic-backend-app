@@ -6,7 +6,7 @@ const ObjectId = Schema.Types.ObjectId;
 
 
 const viviendaSchema = new Schema({
-  title: {
+  titulo: {
     type: String,
     required: true,
   },
@@ -20,15 +20,15 @@ const viviendaSchema = new Schema({
     enum: ['venta', 'alquiler'],
     required: true
   },
-  price: {
+  precio: {
     type: Number,
   },
-  type: {
+  tipo: {
     type: String,
     enum: ['piso','chalet','planta baja','bungalow','apartamento','atico']
   },
   // Images es un Array de Strings.
-  images: {
+  imagenes: {
     type: [String],
   },
   numHab: {
@@ -37,7 +37,7 @@ const viviendaSchema = new Schema({
   numAseos: {
     type: Number,
   },
-  description: {
+  descripcion: {
     type: String
   },
   numGarajes: {

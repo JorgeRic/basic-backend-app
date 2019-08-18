@@ -9,7 +9,6 @@ router.get('/viviendas', async (req, res, next) => {
   try{
 const listOfViv = await ViviendasDB.find()
 res.status(200).json({listOfViv})
-console.log(listOfViv, 'Hola')
 
 } catch(error){
   next(error)
@@ -41,9 +40,9 @@ router.post('/viviendas/view', async (req, res, next) => {
 
 //modifica las viviendas
 router.put('/viviendas/:id/update', async (req, res ,next) => {
-  console.log("aqui estamos", req)
   const {id} = req.params
   const vivupdated = req.body
+  console.log("ole mi body:", req.body);
   try{
     const updated = await ViviendasDB.findByIdAndUpdate(id, vivupdated, {new: true})
     res.status(200).json(updated)
@@ -90,7 +89,7 @@ router.post('/viviendas/search', async (req, res, next) => {
       if (query[key] == '' || query[key] == 0)
         delete query[key];
       else
-        if (['price', 'metros', 'numHab', 'numAseos', 'numGarajes'].indexOf(key) > -1)
+        if (['precio', 'metros', 'numHab', 'numAseos', 'numGarajes'].indexOf(key) > -1)
           query[key] = { $lte: query[key] };
     };
 
