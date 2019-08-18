@@ -11,11 +11,15 @@ const aplicationSchema = new Schema({
     required: true,
   },
   referencia: {
-    type: String,
+    type: Number,
     required: true,
     unique: true
   },
-  
+  clase: {
+    type: String,
+    enum: ['venta', 'alquiler'],
+    required: true
+  },
   price: {
     type: Number,
   },
@@ -32,7 +36,39 @@ const aplicationSchema = new Schema({
   numAseos: {
     type: Number,
   },
-  description: String
+  description: {
+    type: String
+  },
+  numGarajes: {
+    type: Number,
+  },
+  piscina: {
+    type: String,
+    enum: ['Si', 'No']
+  },
+  jardin: {
+    type: String,
+    enum: ['Si', 'No']
+  },
+  metros:{
+    type: Number,
+  },
+  ciudad: {
+    type: String,
+    enum: ['Alicante','San Vicente','San Juan','Campello','El Altet','Agost']
+  },
+  direccion: {
+    type: String
+  },
+  nombrePropietario: {
+    type: String,
+  },
+  telefonoPropietario: {
+    type: String,
+  },
+  mailPropietario: {
+    type: String
+  },
   
   
 });

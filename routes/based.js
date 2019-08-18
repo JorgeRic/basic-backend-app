@@ -90,6 +90,18 @@ router.post('/viviendas/search', async (req, res, next) => {
   }
 });
 
+// router.post('/viviendas/search', async (req, res, next) => {
+//   try {
+//     const { referencia, title, price, image, numHab, numAseos,id, type, description} = req.body;
+//     const refer = await Aplication.find({ numHab });
+
+
+//     res.status(200).json(refer)
+
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 
 
 
