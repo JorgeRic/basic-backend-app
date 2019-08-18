@@ -18,11 +18,11 @@ console.log(listOfViv, 'Hola')
 //crea nueva vivienda
 router.post('/viviendas/new', async (req, res, next) => {
   try{
-    const newViv = req.body
+    const newViv = req.body;
     const createdViv = await ViviendasDB.create(newViv)
     res.status(200).json(createdViv)
 
-  }catch (error){
+  } catch (error) {
     next(error)
   }
 })

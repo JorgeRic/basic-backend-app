@@ -28,7 +28,7 @@ const viviendaSchema = new Schema({
     enum: ['piso','chalet','planta baja','bungalow','apartamento','atico']
   },
   image: {
-    type: String,
+    type: [String],
   },
   numHab: {
     type: Number,
