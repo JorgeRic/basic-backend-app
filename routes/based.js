@@ -18,11 +18,11 @@ console.log(listOfViv, 'Hola')
 //crea nueva vivienda
 router.post('/viviendas/new', async (req, res, next) => {
   try{
-    const newViv = req.body
+    const newViv = req.body;
     const createdViv = await ViviendasDB.create(newViv)
     res.status(200).json(createdViv)
 
-  }catch (error){
+  } catch (error) {
     next(error)
   }
 })
@@ -79,11 +79,13 @@ router.get('/viviendas/:id/detail', async (req, res, next) => {
 
 router.post('/viviendas/search', async (req, res, next) => {
   try {
-    console.log(req.body);
+    // req.body devuelve el objecto completo de la query ({tipo: xxx, referencia: xxx...}).
     const query = req.body;
-    // const refer = await Aplication.find({ referencia });
 
     // Filtrado de parámetros
+    // Algunos parámetros deben eliminarse si contienen valores vacíos o "0".
+    // Los formularios HTML crearán un parámetro para cualquier campo que sea "tocado",
+    // aunque después se borre.
     for (var key in query) {
       if (query[key] == '' || query[key] == 0)
         delete query[key];
@@ -91,8 +93,6 @@ router.post('/viviendas/search', async (req, res, next) => {
         if (['price', 'metros', 'numHab', 'numAseos', 'numGarajes'].indexOf(key) > -1)
           query[key] = { $lte: query[key] };
     };
-
-    console.log(query);
 
     const refer = await ViviendasDB.find(query);
 
