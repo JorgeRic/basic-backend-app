@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 
 
-const aplicationSchema = new Schema({
+const viviendaSchema = new Schema({
   title: {
     type: String,
     required: true,
@@ -73,6 +73,6 @@ const aplicationSchema = new Schema({
   
 });
 
-const Aplication = mongoose.model('Aplication', aplicationSchema);
+const ViviendasDB = mongoose.model('Aplication', viviendaSchema);
 
-module.exports = Aplication;
+module.exports = ViviendasDB;
