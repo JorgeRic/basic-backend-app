@@ -42,7 +42,6 @@ router.post('/viviendas/view', async (req, res, next) => {
 router.put('/viviendas/:id/update', async (req, res ,next) => {
   const {id} = req.params
   const vivupdated = req.body
-  console.log("ole mi body:", req.body);
   try{
     const updated = await ViviendasDB.findByIdAndUpdate(id, vivupdated, {new: true})
     res.status(200).json(updated)
@@ -67,7 +66,6 @@ router.delete('/viviendas/:id/delete', async (req, res,next) => {
 router.get('/viviendas/:id/detail', async (req, res, next) => {
   const {id} = req.params
   try {
-    console.log(id, 'Aqui.....')
     const detail = await ViviendasDB.findById(id)
     res.status(200).json(detail)
   } catch (error) {
@@ -78,42 +76,19 @@ router.get('/viviendas/:id/detail', async (req, res, next) => {
 
 router.post('/viviendas/search', async (req, res, next) => {
   try {
-    // req.body devuelve el objecto completo de la query ({tipo: xxx, referencia: xxx...}).
-    const query = req.body;
-
-    // Filtrado de parámetros
-    // Algunos parámetros deben eliminarse si contienen valores vacíos o "0".
-    // Los formularios HTML crearán un parámetro para cualquier campo que sea "tocado",
-    // aunque después se borre.
-    for (var key in query) {
-      if (query[key] == '' || query[key] == 0)
-        delete query[key];
-      else
-        if (['precio', 'metros', 'numHab', 'numAseos', 'numGarajes'].indexOf(key) > -1)
-          query[key] = { $lte: query[key] };
-    };
-
+    const query = {};
+    for (const key in req.body) {
+      if(req.body[key]) {
+        query[key] = req.body[key]
+      }
+    }
     const refer = await ViviendasDB.find(query);
-
     res.status(200).json(refer)
 
   } catch (error) {
     next(error);
   }
 });
-
-// router.post('/viviendas/search', async (req, res, next) => {
-//   try {
-//     const { referencia, title, price, image, numHab, numAseos,id, type, description} = req.body;
-//     const refer = await Aplication.find({ numHab });
-
-
-//     res.status(200).json(refer)
-
-//   } catch (error) {
-//     next(error);
-//   }
-// });
 
 
 
