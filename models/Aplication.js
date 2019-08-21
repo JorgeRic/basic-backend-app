@@ -70,7 +70,12 @@ const viviendaSchema = new Schema({
   mailPropietario: {
     type: String
   },
-  
+  lat: {
+    type: String
+  },
+  long: {
+    type: String
+  }
   
 });
 

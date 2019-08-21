@@ -28,28 +28,27 @@ router.post('/viviendas/new', async (req, res, next) => {
 
 router.post('/viviendas/view', async (req, res, next) => {
   try{
-    const newView = req.body
+    const newView = req.body;
     const showView = await ViviendasDB.findOne(newView)
     res.status(200).json(showView)
 
   }catch (error){
     next(error)
   }
-})
+});
 
 
 //modifica las viviendas
 router.put('/viviendas/:id/update', async (req, res ,next) => {
-  const {id} = req.params
-  const vivupdated = req.body
+  const {id} = req.params;
+  const vivupdated = req.body;
   try{
     const updated = await ViviendasDB.findByIdAndUpdate(id, vivupdated, {new: true})
     res.status(200).json(updated)
   }catch(error){
     next(error)
   }
-
-})
+});
 
 //borra las viviendas
 router.delete('/viviendas/:id/delete', async (req, res,next) => {
