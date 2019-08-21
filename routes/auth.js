@@ -48,7 +48,7 @@ router.post(
 
 router.post(
   '/signup',
-  isLoggedIn(),
+  isNotLoggedIn(),
   validationLoggin(),
   async (req, res, next) => {
     const { username, password } = req.body;
