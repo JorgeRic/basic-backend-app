@@ -73,15 +73,16 @@ router.get('/viviendas/:id/detail', async (req, res, next) => {
   }
 })
 
-
 router.post('/viviendas/search', async (req, res, next) => {
   try {
     const query = {};
     for (const key in req.body) {
       if(req.body[key]) {
-        query[key] = req.body[key]
+        query[key] = ["precio"].includes(key) ? {$lte: req.body[key]} : req.body[key]
       }
     }
+    console.log(req.body)
+    console.log(query)
     const refer = await ViviendasDB.find(query);
     res.status(200).json(refer)
 
@@ -89,9 +90,5 @@ router.post('/viviendas/search', async (req, res, next) => {
     next(error);
   }
 });
-
-
-
-
 
 module.exports = router
